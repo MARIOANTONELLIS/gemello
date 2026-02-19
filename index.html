@@ -12,9 +12,17 @@
     <script>
         pannellum.viewer('panorama', {
             "type": "cubemap",
-            "cubeMap": ["01_FRONT.jpg","02_RIGHT.jpg","03_BACK.jpg","04_LEFT.jpg","05_TOP.jpg","06_BOTTOM.jpg"],
+            "cubeMap": "cubeMap": [
+                "01_FRONT.jpg",  // 1. Davanti
+                "04_LEFT.jpg",   // 2. Pannellum qui vuole la faccia che tu hai chiamato LEFT
+                "03_BACK.jpg",   // 3. Dietro
+                "02_RIGHT.jpg",  // 4. Pannellum qui vuole la faccia che tu hai chiamato RIGHT
+                "05_TOP.jpg",    // 5. Cielo
+                "06_BOTTOM.jpg"  // 6. Pavimento
+            ]                    
             "autoLoad": true
         });
     </script>
 </body>
+
 </html>
