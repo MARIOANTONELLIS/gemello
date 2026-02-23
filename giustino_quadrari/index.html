@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title> 
+    <link rel="stylesheet" type="text/css" href="template2.css" />
+    <style>
+        /* Rimuove i margini e blocca le scrollbar */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden !important; /* Forza la sparizione delle barre */
+            background-color: #000;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        /* Nasconde il titolo "info" prodotto dal plugin */
+        #info {
+            display: none !important;
+        }
+
+        /* Forza il canvas di Three.js a non eccedere mai i bordi */
+        canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="divloading"></div>		
+    </div>
+
+    <script src="three.min.js"></script>
+    <script src="pano0.js"></script>
+</body>
+</html>
