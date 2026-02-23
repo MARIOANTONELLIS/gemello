@@ -4,33 +4,41 @@
     <title></title> 
     <link rel="stylesheet" type="text/css" href="template2.css" />
     <style>
-        /* Rimuove i margini e blocca le scrollbar */
+        /* Layout e Anti-Scroll */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden !important; /* Forza la sparizione delle barre */
+            overflow: hidden !important;
             background-color: #000;
         }
-
         #container {
             width: 100vw;
             height: 100vh;
             display: block;
         }
+        #info { display: none !important; }
 
-        /* Nasconde il titolo "info" prodotto dal plugin */
-        #info {
-            display: none !important;
+        /* Stile del Pulsante Fullscreen */
+        #fs-button {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
         }
-
-        /* Forza il canvas di Three.js a non eccedere mai i bordi */
-        canvas {
-            display: block;
-            width: 100% !important;
-            height: 100% !important;
-        }
+        #fs-button:hover { background: rgba(0, 0, 0, 0.7); }
+        #fs-button svg { fill: white; width: 20px; height: 20px; }
     </style>
 </head>
 <body>
@@ -38,7 +46,47 @@
         <div id="divloading"></div>		
     </div>
 
+    <div id="fs-button" onclick="toggleFullScreen()" title="Tutto Schermo">
+        <svg viewBox="0 0 24 24">
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+    </div>
+
     <script src="three.min.js"></script>
     <script src="pano0.js"></script>
+
+    <script>
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                // Entra in Fullscreen
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
+                    document.documentElement.msRequestFullscreen();
+                }
+            } else {
+                // Esce dal Fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE11 */
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Cambia l'icona o lo stato se l'utente esce premendo ESC
+        document.addEventListener('fullscreenchange', () => {
+            const btn = document.getElementById('fs-button');
+            if (document.fullscreenElement) {
+                btn.style.borderColor = "#4CAF50"; // Verde se attivo (opzionale)
+            } else {
+                btn.style.borderColor = "rgba(255, 255, 255, 0.7)";
+            }
+        });
+    </script>
 </body>
 </html>
